@@ -14,7 +14,7 @@
         <div>
             <i class="fa-solid fa-clock" style="font-size: xx-large;"></i>
             <h1>Track time</h1>
-        <p>be accountable</p>
+        <p>be accountable..</p>
         </div>
         
     </div>
@@ -22,14 +22,17 @@
         <div class="TOPSEC" style="text-align: center;"><h3>Login</h3> </div>
         <div class="MIDDLESEC">
             <label for="email">E-mail</label>
-            <input type="email" placeholder="Enter your email" name="email" id="email">
+            <input type="email" placeholder="Enter your email" name="email" id="email" required id="email">
             <label for="passwod">Password</label>
-            <input type="password" placeholder="Enter your password">
+            <input type="password" placeholder="Enter your password" required name="password" id="password">
             <div class="nonsess">
-             <div class="daniel"><input type="checkbox"> <label for="">Remember me</label></div> 
+             <div class="daniel"><input type="checkbox"> <label for="check">Remember</label></div> 
              <p>Reset pasword!</p>  
             </div>
+
             <button class="loginbtn">Login</button>
+
+            
 
         </div><br>
         <div class="BOTTOMSEC">
@@ -37,8 +40,25 @@
         <i class="fa-brands fa-facebook"></i>
         <i class="fa-brands fa-linkedin"></i>
         </div>
+        <p class="lastpp">Don't have an account <a class="link-regist" href="signin.html">Create an account</a></p>
        
     </div>
     </form>
+    <script>
+    
+        document.querySelector('.loginbtn').addEventListener('click', function(event) {
+            event.preventDefault(); 
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            if (email === '' || password === '') {
+                alert('Please fill in all fields');
+            } else {
+                alert('Form submitted successfully');
+            }
+        });
+    </script>
+
 </body>
 </html>

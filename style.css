@@ -23,11 +23,14 @@ body{
 form{
     display: flex;
     gap: 8px;
-    border: 2px solid #373F51;
-    width: 50%;
-    height: 60vh;
+    
+    min-width: fit-content;
+    width:58% ;
+    height: fit-content;
     border-radius: 15px;
     background-color: #E5E7E6;
+    box-shadow: 5px 5px 6px rgba(0, 0, 0, 0.247);
+    
     
 }
     .daniel{
@@ -39,21 +42,29 @@ form{
     }
     .TOPSEC{
         font-size: xx-large;
+        margin-bottom: 12px;
+        margin-top: 18px;
+
     }
 .LEFT-PART{
     display: flex;
     justify-content: center;
     align-items: center;
-    border-right: 1px solid grey ;
+    
     background-color: #373F51;
     color: #E5E7E6;
-    width: 50%;
-     border-radius: 10px;
+    width: 70%;
+     border-bottom-left-radius: 15px;
+     border-top-left-radius:15px ;
      text-align: center;
+     padding-inline: 50px;
+     padding-block: 20px;
 }
 .RIGHT-PART{
-    width: 50%;
+    width: 80%;
     padding: 10px;
+    padding-inline: 15px;
+
     
     
 }
@@ -61,14 +72,17 @@ input{
     margin-block: 12px;
     height: 30px;
     padding-left: 6px;
-    border: 1px solid #373F51;
+    border: 2px solid #373F51;
     border-radius: 10px;
+    background-color: #E5E7E6;
+    width: 100%;
 }
 .loginbtn{
     padding-block: 5px;
     border-radius: 10px;
     border: 2px solid #373F51;
     transition: 0.25s;
+    color: #373F51;
 
 }
 .loginbtn:hover{
@@ -80,4 +94,19 @@ input{
     display: flex;
     align-items: center;
     justify-content: space-around;
+    gap: 4px;
+    padding-inline: 30px;
+    
+    margin-top: 12px;
+    margin-bottom: 18px;
+
+}
+.lastpp{
+    font-size: small;
+}
+.link-regist{
+    text-decoration: none;
+}
+i:hover{
+    cursor: pointer;
 }
