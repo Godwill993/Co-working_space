@@ -5,9 +5,11 @@
 }
 body{
     display: flex;
+    color: #373F51;
     align-items: center;
     justify-content: center;
     height: 100vh;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 .nonsess{
     display: flex;
@@ -21,11 +23,60 @@ body{
 form{
     display: flex;
     gap: 8px;
-    border: 1px solid grey;
+    border: 2px solid #373F51;
+    width: 50%;
+    height: 60vh;
+    border-radius: 15px;
+    background-color: #E5E7E6;
+    
 }
+    .daniel{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+
+    }
+    .TOPSEC{
+        font-size: xx-large;
+    }
 .LEFT-PART{
     display: flex;
     justify-content: center;
     align-items: center;
     border-right: 1px solid grey ;
+    background-color: #373F51;
+    color: #E5E7E6;
+    width: 50%;
+     border-radius: 10px;
+}
+.RIGHT-PART{
+    width: 50%;
+    padding: 10px;
+    
+    
+}
+input{
+    margin-block: 12px;
+    height: 30px;
+    padding-left: 6px;
+    border: 1px solid #373F51;
+    border-radius: 10px;
+}
+.loginbtn{
+    padding-block: 5px;
+    border-radius: 10px;
+    border: 2px solid #373F51;
+    transition: 0.25s;
+
+}
+.loginbtn:hover{
+    background-color: #373F51;
+    color: #E5E7E6;
+    cursor: pointer;
+}
+.BOTTOMSEC{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
