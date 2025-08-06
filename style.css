@@ -23,11 +23,12 @@ body{
 form{
     display: flex;
     gap: 8px;
-    border: 2px solid #373F51;
+    
     width: 50%;
     height: 60vh;
     border-radius: 15px;
     background-color: #E5E7E6;
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.279);
     
 }
     .daniel{
@@ -39,6 +40,8 @@ form{
     }
     .TOPSEC{
         font-size: xx-large;
+        margin-top: 20px;
+
     }
 .LEFT-PART{
     display: flex;
@@ -48,7 +51,9 @@ form{
     background-color: #373F51;
     color: #E5E7E6;
     width: 50%;
-     border-radius: 10px;
+     border-top-left-radius: 15px;
+        border-bottom-left-radius: 15px;
+     text-align: center;
 }
 .RIGHT-PART{
     width: 50%;
@@ -68,6 +73,7 @@ input{
     border-radius: 10px;
     border: 2px solid #373F51;
     transition: 0.25s;
+    background-color: #E5E7E6;
 
 }
 .loginbtn:hover{
@@ -79,4 +85,11 @@ input{
     display: flex;
     align-items: center;
     justify-content: space-around;
+    margin-bottom: 24px;
+}
+.pppp{
+    font-size: small;
+}
+a{
+    text-decoration: none;
 }
