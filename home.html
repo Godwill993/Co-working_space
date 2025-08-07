@@ -140,13 +140,14 @@
         if (shiftCount == 1) {
           resume.textContent = "Working..";
           fesshift.textContent = "You are Currently on your first shift";
-          return;
         }
-        else{
+        if(shiftCount == 2){
           resume.textContent = "Working..";
-          fesshift.textContent = "Your break is Over.";
+          brkshift.textContent = "Your break is Over.";
             secshift.textContent = 'You are currently on your second shift'
+            return;
         }
+    
       });
 
       document.getElementById("break").addEventListener("click", () => {
@@ -161,7 +162,7 @@
           workingTime++;
           return;
         }
-        if (hours !== 12 && minutes < 30) {
+        if (hours !== 12 && minutes > 30) {
           alert("You can only go for break at 12:00.");
           return;
         }
@@ -173,7 +174,7 @@
         console.log(shiftCount)
         if(shiftCount == 1){
             resume.textContent = "continue..";
-            fesshift.textContent = "Your First Shift is over.";
+            fesshift.textContent = `Your First Shift is over. at ${hours}:${minutes}`;
             brkshift.textContent = 'You Are Currrently on Break'
             return;
         }
