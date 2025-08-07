@@ -116,7 +116,7 @@ nav .links i{
 }
 
 .timer_section .left .startstop div{
-    font-size: .9em;
+    font-size: .85em;
     font-family: "quicksand", sans-serif;
     font-weight: 600;
     margin-bottom: 5px;
@@ -136,13 +136,13 @@ nav .links i{
 .timer_section .left .break{
     padding: 10px;
     background-color: rgba(0, 103, 238, 0.274);
-    width: 220px;
+    width: 230px;
     border-radius: 8px;
     box-shadow: 3px 3px 20px #0000002a;
 }
 
 .timer_section .left .break div{
-    font-size: .9em;
+    font-size: .85em;
     font-family: "quicksand", sans-serif;
     font-weight: 600;
     margin-bottom: 5px;
@@ -185,4 +185,11 @@ nav .links i{
 
 .timer_section .right{
     width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.right .work-sheet{
+    
 }

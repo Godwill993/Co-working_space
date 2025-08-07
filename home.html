@@ -1,162 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>timer</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="home.css">
-</head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="home.css" />
+  </head>
 
-<body>
+  <body>
     <div class="container">
-        <nav>
-            <div class="logo">
-                <i class="fa-solid fa-clock"></i>
-                <img src="New folder/TIC Logo_Horizontal_Blue.png" alt="logo">
-            </div>
-            <div class="links">
-                <ul>
-                    <li>Home</li>
-                    <li>History</li>
-                </ul>
-                <i class="fa-solid fa-circle-user"></i>
-                <i class="fa-solid fa-arrow-right-from-bracket"></i>
-            </div>
-        </nav>
+      <nav>
+        <div class="logo">
+          <i class="fa-solid fa-clock"></i>
+          <img src="New folder/TIC Logo_Horizontal_Blue.png" alt="logo" />
+        </div>
+        <div class="links">
+          <ul>
+            <li>Home</li>
+            <li>History</li>
+          </ul>
+          <i class="fa-solid fa-circle-user"></i>
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        </div>
+      </nav>
     </div>
     <div class="timer_section">
+      <div class="left">
+        <div class="times">
+          <div class="startstop">
+            <div id="system-start-time">Your started work at: 00:00</div>
+            <label for="workingtime">Working Time:</label>
+            <h2 id="working-time">00:00:00</h2>
+          </div>
+          <div class="break">
+            <div id="system-break-time">Break Starts at: 12:00</div>
+            <label for="Break-Time">Break Time</label>
+            <h2 id="break-time">00:00</h2>
+          </div>
+        </div>
 
-        <div class="left">
-            <div class="times">
-                <div class="startstop">
-                    <div id="system-start-time">Your</div>
-                    <label for="workingtime">Working Time:</label>
-                    <h2 id="working-time">00:00:00</h2>
-                </div>
-                <div class="break">
-                    <div id="system-break-time"></div>
-                    <label for="Break-Time">Break Time</label>
-                    <h2 id="break-time">00:00</h2>
-                </div>
-            </div>
-            <div class="timer_buttons">
-                <button id="start">Start</button>
-                <button id="break">start break</button>
-            </div>    
+        <div class="timer_buttons">
+          <button id="start">Start</button>
+          <button id="break">start break</button>
         </div>
-        <div class="right">
-             <div class="work-sheet" id="work-sheet">
-                <label for="task-of-day">Task of the day</label>
-                <textarea name="" id="task" placeholder="What did you do today?"></textarea>
-                <label for="chanllenges">Chanllenge</label>
-                <textarea name="" id="chanllenge" placeholder="Did data disturb?"></textarea>
-                <label for="next-steps">Next steps</label>
-                <textarea name="" id="next-steps" placeholder="What will you do tomorrow?"></textarea>
-            </div>
+        <p id="fesshift"></p>
+        <p id="brkshift"></p>
+        <p id="secshift"></p>
+      </div>
+      <div class="right">
+        <div class="work-sheet" id="work-sheet">
+          <label for="task-of-day">Task of the day</label>
+          <textarea
+            name=""
+            id="task"
+            placeholder="What did you do today?"
+          ></textarea>
+          <label for="chanllenges">Chanllenge</label>
+          <textarea
+            name=""
+            id="chanllenge"
+            placeholder="Did data disturb?"
+          ></textarea>
+          <label for="next-steps">Next steps</label>
+          <textarea
+            name=""
+            id="next-steps"
+            placeholder="What will you do tomorrow?"
+          ></textarea>
         </div>
-        
+      </div>
     </div>
-        
-        
-        
-        
 
-       
-        <div class="bottom-page">
-            <button id="stop-all-timers">signout</button>
-        </div>
-        <script>
-            const workSheet = document.getElementById('work-sheet');
-            const task = document.getElementById('task');
-            const chanllenge = document.getElementById('chanllenge');
-            const nextSteps = document.getElementById('next-steps');
-            const stopAllTimersButton = document.getElementById('stop-all-timers');   
-            const systemTimeDiv = document.getElementById('system-start-time');
-            const systemBreakDiv = document.getElementById('system-break-time')
-            let counter = 0;
-            let workingTime = 0;
-            let breakTime = 0;
-            let timerInterval;
-            const today = new Date();
-            const formattedDate = today.toLocaleDateString('en-US');
-            console.log(`Today's Date: ${formattedDate}`);
+    <div class="bottom-page">
+      <button id="stop-all-timers">signout</button>
+    </div>
+    <script>
+      const workSheet = document.getElementById("work-sheet");
+      const task = document.getElementById("task");
+      const chanllenge = document.getElementById("chanllenge");
+      const nextSteps = document.getElementById("next-steps");
+      const stopAllTimersButton = document.getElementById("stop-all-timers");
+      const systemTimeDiv = document.getElementById("system-start-time");
+      const systemBreakDiv = document.getElementById("system-break-time");
+      const resume = document.getElementById("start");
+      const resumes = document.getElementById('break')
+      let fesshift = document.getElementById("fesshift");
+      let brkshift = document.getElementById('brkshift')
+      let secshift = document.getElementById('secshift')
+      let shiftCount = 0;
+      let counter = 0;
+      let workingTime = 0;
+      let breakTime = 0;
+      let timerInterval;
+      const today = new Date();
+      const formattedDate = today.toLocaleDateString("en-US");
+      console.log(`Today's Date: ${formattedDate}`);
 
-            function updateDisplay() {
-                const workingHours = Math.floor(workingTime / 3600).toString().padStart(2, '0');
-                const workingMinutes = Math.floor((workingTime % 3600) / 60).toString().padStart(2, '0');
-                const workingSeconds = (workingTime % 60).toString().padStart(2, '0');
-                document.getElementById('working-time').textContent = `${workingHours}:${workingMinutes}:${workingSeconds}`;
+      function updateDisplay() {
+        const workingHours = Math.floor(workingTime / 3600)
+          .toString()
+          .padStart(2, "0");
+        const workingMinutes = Math.floor((workingTime % 3600) / 60)
+          .toString()
+          .padStart(2, "0");
+        const workingSeconds = (workingTime % 60).toString().padStart(2, "0");
+        document.getElementById(
+          "working-time"
+        ).textContent = `${workingHours}:${workingMinutes}:${workingSeconds}`;
 
+        const breakHours = Math.floor(breakTime / 3600)
+          .toString()
+          .padStart(2, "0");
+        const breakMinutes = Math.floor((breakTime % 3600) / 60)
+          .toString()
+          .padStart(2, "0");
+        const breakSeconds = (breakTime % 60).toString().padStart(2, "0");
+        document.getElementById(
+          "break-time"
+        ).textContent = `${breakMinutes}:${breakSeconds}`;
+      }
 
-                const breakHours = Math.floor(breakTime / 3600).toString().padStart(2, '0');
-                const breakMinutes = Math.floor((breakTime % 3600) / 60).toString().padStart(2, '0');
-                const breakSeconds = (breakTime % 60).toString().padStart(2, '0');
-                document.getElementById('break-time').textContent = `${breakMinutes}:${breakSeconds}`;
-            }
+      document.getElementById("start").addEventListener("click", () => {
+        const now = new Date();
+        const hours = now.getHours(); // 0–23
+        const minutes = now.getMinutes(); // 0–59
+        const seconds = now.getSeconds(); // 0–59
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+          workingTime++;
+          updateDisplay();
+          systemTimeDiv.textContent = `You started work at: ${hours}:${minutes}:${seconds}`;
+        }, 1000);
+        shiftCount++;
+        console.log(shiftCount);
+        if (shiftCount == 1) {
+          resume.textContent = "Working..";
+          fesshift.textContent = "You are Currently on your first shift";
+          return;
+        }
+        else{
+          resume.textContent = "Working..";
+          fesshift.textContent = "Your break is Over.";
+            secshift.textContent = 'You are currently on your second shift'
+        }
+      });
 
-            document.getElementById('start').addEventListener('click', () => {
-                const now = new Date();
-                const hours = now.getHours();       // 0–23
-                const minutes = now.getMinutes();   // 0–59
-                const seconds = now.getSeconds();   // 0–59
-                clearInterval(timerInterval);
-                timerInterval = setInterval(() => {
-                    workingTime++;
-                    updateDisplay();
-                    systemTimeDiv.textContent = `You started work at: ${hours}:${minutes}:${seconds}`;
+      document.getElementById("break").addEventListener("click", () => {
+        const now = new Date();
+        const hours = now.getHours(); // 0–23
+        const minutes = now.getMinutes(); // 0–59
+        const seconds = now.getSeconds(); // 0–59
+        clearInterval(timerInterval);
+        counter++;
+        if (counter > 1) {
+          alert("You can only go for break once.");
+          workingTime++;
+          return;
+        }
+        if (hours !== 12 && minutes < 30) {
+          alert("You can only go for break at 12:00.");
+          return;
+        }
+        timerInterval = setInterval(() => {
+          breakTime++;
+          updateDisplay();
+          systemBreakDiv.textContent = `Your break time started at: ${hours}:${minutes}`;
+        }, 1000);
+        console.log(shiftCount)
+        if(shiftCount == 1){
+            resume.textContent = "continue..";
+            fesshift.textContent = "Your First Shift is over.";
+            brkshift.textContent = 'You Are Currrently on Break'
+            return;
+        }
+      });
 
-                }, 1000);
-            });
+      updateDisplay();
+      document
+        .getElementById("stop-all-timers")
+        .addEventListener("click", () => {
+          clearInterval(timerInterval);
+          workingTime = 0;
+          breakTime = 0;
+          updateDisplay();
+          systemTimeDiv.textContent = "have a blessed evening";
+          alert("have a blessed evening");
+        });
 
-            document.getElementById('break').addEventListener('click', () => {
-                const now = new Date();
-                const hours = now.getHours();       // 0–23
-                const minutes = now.getMinutes();   // 0–59
-                const seconds = now.getSeconds();   // 0–59
-                clearInterval(timerInterval);
-                counter++;
-                if (counter > 1) {
-                    alert("You can only go for break once.");
-                    return
-                   
-                }
-                 if (hours !== 12 && minutes > 30) {
-                        alert("You can only go for break at 12:00.");
-                        return;
-                    }
-                timerInterval = setInterval(() => {
-                    breakTime++;
-                    updateDisplay();
-                    systemBreakDiv.textContent = `Your break time started at: ${hours}:${minutes}:${seconds}`;
-                }, 1000);
-            });
+      document
+        .getElementById("stop-all-timers")
+        .addEventListener("click", () => {
+          workSheet.style.display = "block";
+          const taskValue = task.value;
+          const chanllengeValue = chanllenge.value;
+          const nextStepsValue = nextSteps.value;
 
-            updateDisplay();
-            document.getElementById('stop-all-timers').addEventListener('click', () => {
-                clearInterval(timerInterval);
-                workingTime = 0;
-                breakTime = 0;
-                updateDisplay();
-                systemTimeDiv.textContent = 'have a blessed evening';
-                alert('have a blessed evening');
-            });
-           
-            document.getElementById('stop-all-timers').addEventListener('click', () => {
-                workSheet.style.display = 'block';
-                const taskValue = task.value;
-                const chanllengeValue = chanllenge.value;
-                const nextStepsValue = nextSteps.value;
-
-                if (taskValue && chanllengeValue && nextStepsValue) {
-                    alert(`Task of the day: ${taskValue}\nChanllenge: ${chanllengeValue}\nNext steps: ${nextStepsValue}`);
-                } else {
-                    alert('Please fill in all fields.');
-                }
-            });
-        </script>
-
-</body>
-
+          if (taskValue && chanllengeValue && nextStepsValue) {
+            alert(
+              `Task of the day: ${taskValue}\nChanllenge: ${chanllengeValue}\nNext steps: ${nextStepsValue}`
+            );
+          } else {
+            alert("Please fill in all fields.");
+          }
+        });
+    </script>
+  </body>
 </html>
