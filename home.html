@@ -32,7 +32,7 @@
       <div class="left">
         <div class="times">
           <div class="startstop">
-            <div id="system-start-time">Your started work at: 00:00</div>
+            <div id="system-start-time">Work starts at 9AM</div>
             <label for="workingtime">Working Time:</label>
             <h2 id="working-time">00:00:00</h2>
           </div>
@@ -47,36 +47,47 @@
           <button id="start">Start</button>
           <button id="break">start break</button>
         </div>
+        <div class="paras">
         <p id="fesshift"></p>
         <p id="brkshift"></p>
         <p id="secshift"></p>
       </div>
+
+      <div class="bottom-page">
+        <button id="stop-all-timers">signout</button>
+      </div>
+      </div>
       <div class="right">
         <div class="work-sheet" id="work-sheet">
-          <label for="task-of-day">Task of the day</label>
-          <textarea
-            name=""
-            id="task"
-            placeholder="What did you do today?"
-          ></textarea>
-          <label for="chanllenges">Chanllenge</label>
-          <textarea
-            name=""
-            id="chanllenge"
-            placeholder="Did data disturb?"
-          ></textarea>
-          <label for="next-steps">Next steps</label>
-          <textarea
-            name=""
-            id="next-steps"
-            placeholder="What will you do tomorrow?"
-          ></textarea>
+          <label for="task-of-day"
+            >Task of the day <br>
+            <textarea rows="3"
+              name=""
+              id="task"
+              placeholder="What did you do today?"
+            ></textarea> <br>
+          </label>
+          <label for="chanllenges"
+            >Chanllenge <br>
+            <textarea rows="3"
+              name=""
+              id="chanllenge"
+              placeholder="Did data disturb?"
+            ></textarea> <br>
+          </label>
+          <label for="next-steps"
+            >Next steps <br>
+            <textarea rows="3"
+              name=""
+              id="next-steps"
+              placeholder="What will you do tomorrow?"
+            ></textarea>
+          </label>
         </div>
       </div>
     </div>
-
-    <div class="bottom-page">
-      <button id="stop-all-timers">signout</button>
+    <div class="bottoms">
+      <div class="alertss" id="alertss"></div>
     </div>
     <script>
       const workSheet = document.getElementById("work-sheet");
@@ -87,10 +98,11 @@
       const systemTimeDiv = document.getElementById("system-start-time");
       const systemBreakDiv = document.getElementById("system-break-time");
       const resume = document.getElementById("start");
-      const resumes = document.getElementById('break')
+      const resumes = document.getElementById("break");
+      let alertss = document.getElementById("alertss");
       let fesshift = document.getElementById("fesshift");
-      let brkshift = document.getElementById('brkshift')
-      let secshift = document.getElementById('secshift')
+      let brkshift = document.getElementById("brkshift");
+      let secshift = document.getElementById("secshift");
       let shiftCount = 0;
       let counter = 0;
       let workingTime = 0;
@@ -141,13 +153,12 @@
           resume.textContent = "Working..";
           fesshift.textContent = "You are Currently on your first shift";
         }
-        if(shiftCount == 2){
+        if (shiftCount == 2) {
           resume.textContent = "Working..";
           brkshift.textContent = "Your break is Over.";
-            secshift.textContent = 'You are currently on your second shift'
-            return;
+          secshift.textContent = "You are currently on your second shift";
+          return;
         }
-    
       });
 
       document.getElementById("break").addEventListener("click", () => {
@@ -162,7 +173,7 @@
           workingTime++;
           return;
         }
-        if (hours !== 12 && minutes > 30) {
+        if (hours !== 12 && minutes < 30) {
           alert("You can only go for break at 12:00.");
           return;
         }
@@ -171,12 +182,12 @@
           updateDisplay();
           systemBreakDiv.textContent = `Your break time started at: ${hours}:${minutes}`;
         }, 1000);
-        console.log(shiftCount)
-        if(shiftCount == 1){
-            resume.textContent = "continue..";
-            fesshift.textContent = `Your First Shift is over. at ${hours}:${minutes}`;
-            brkshift.textContent = 'You Are Currrently on Break'
-            return;
+        console.log(shiftCount);
+        if (shiftCount == 1) {
+          resume.textContent = "continue..";
+          fesshift.textContent = `Your First Shift is over. at ${hours}:${minutes}`;
+          brkshift.textContent = "You Are Currrently on Break";
+          return;
         }
       });
 
@@ -188,6 +199,10 @@
           workingTime = 0;
           breakTime = 0;
           updateDisplay();
+          if (task.value == "" || chanllenge == "" || nextSteps == "") {
+            alert("fill all");
+            return;
+          }
           systemTimeDiv.textContent = "have a blessed evening";
           alert("have a blessed evening");
         });
@@ -201,11 +216,9 @@
           const nextStepsValue = nextSteps.value;
 
           if (taskValue && chanllengeValue && nextStepsValue) {
-            alert(
-              `Task of the day: ${taskValue}\nChanllenge: ${chanllengeValue}\nNext steps: ${nextStepsValue}`
-            );
-          } else {
-            alert("Please fill in all fields.");
+            alertss.textContent = `Task of the day: ${taskValue}\nChanllenge: ${chanllengeValue}\nNext steps: ${nextStepsValue}`;
+            resume.textContent = "start";
+            return;
           }
         });
     </script>
