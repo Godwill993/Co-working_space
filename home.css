@@ -92,6 +92,97 @@ nav .links i{
 .timer_section{
     width: 100%;
     max-width: 1100px;
+    display: flex;
     margin: 0 auto;
     padding: 10px;
+}
+
+.timer_section .left{
+    width: 50%;
+}
+
+.timer_section .left .times{
+    display: flex;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.timer_section .left .startstop{
+    padding: 10px;
+    background-color: rgba(0, 103, 238, 0.274);
+    width: 220px;
+    border-radius: 8px;
+    box-shadow: 3px 3px 20px #0000002a;
+}
+
+.timer_section .left .startstop div{
+    font-size: .9em;
+    font-family: "quicksand", sans-serif;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.timer_section .left .startstop label{
+    font-size: .8em;
+    font-family: "quicksand", sans-serif;
+    font-weight: 500;
+}
+
+.timer_section .left .startstop h2{
+    font-size: 2.2em;
+    font-family:  "Mozilla Headline", sans-serif;
+    color: #1d1c1c;
+}
+.timer_section .left .break{
+    padding: 10px;
+    background-color: rgba(0, 103, 238, 0.274);
+    width: 220px;
+    border-radius: 8px;
+    box-shadow: 3px 3px 20px #0000002a;
+}
+
+.timer_section .left .break div{
+    font-size: .9em;
+    font-family: "quicksand", sans-serif;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.timer_section .left .break label{
+    font-size: .8em;
+    font-family: "quicksand", sans-serif;
+    font-weight: 500;
+}
+
+.timer_section .left .break h2{
+    font-size: 2.2em;
+    font-family:  "Mozilla Headline", sans-serif;
+    color: #1d1c1c;
+}
+
+.timer_buttons{
+    display: flex;
+    gap: 10px;
+}
+
+.timer_buttons button{
+    padding: 8px 28px;
+    border: none;
+    outline: none;
+    background-color: #1642d3;
+    border-radius: 5px;
+    color: #fff;
+    font-size: .9em;
+    font-family: "Winky Rough", sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.timer_buttons button:hover{
+    transform: scale(1.03);
+    background-color: #1e48d4f5;
+}
+
+.timer_section .right{
+    width: 50%;
 }
