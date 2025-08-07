@@ -31,23 +31,26 @@
         <div class="left">
             <div class="startstop">
                 <div id="system-start-time"></div>
+                <label for="workingtime">Working Time</label>
                 <h2 id="working-time">00:00:00</h2>
             </div>
-            
+            <div class="break">
+                <p id="system-break-time"></p>
+                <label for="Break-Time">Break Time</label>
+                <h3 id="break-time">00:00</h3>
+            </div>
+            <div class="timer_buttons">
+                <button id="start">Start</button>
+                <button id="break">start break</button>
+            </div>    
         </div>
-        <label for="workingtime">Working Time</label>
+        
+        
 
         
-        <label for="Break-Time">Break Time</label>
-        <h3 id="break-time">00:00</h3>
-        <div class="timer_buttons">
-            <button id="start">Start</button>
-            <button id="break">start break</button>
-            <!--ghislain this is that div like that make the popup -->
-
-        </div>
-
-        <!--ghislain this is that section like that make the popup -->
+        
+        
+        
 
         <div class="work-sheet" id="work-sheet">
             <label for="task-of-day">Task of the day</label>
@@ -67,6 +70,7 @@
             const nextSteps = document.getElementById('next-steps');
             const stopAllTimersButton = document.getElementById('stop-all-timers');   
             const systemTimeDiv = document.getElementById('system-start-time');
+            const systemBreakDiv = document.getElementById('system-break-time')
             let counter = 0;
             let workingTime = 0;
             let breakTime = 0;
@@ -114,14 +118,14 @@
                     return
                    
                 }
-                 if (hours !== 12 && minutes > 30 ) {
+                 if (hours !== 12 && minutes > 30) {
                         alert("You can only go for break at 12:00.");
                         return;
                     }
                 timerInterval = setInterval(() => {
                     breakTime++;
                     updateDisplay();
-                    systemTimeDiv.textContent = `Your break time started at: ${hours}:${minutes}:${seconds}`;
+                    systemBreakDiv.textContent = `Your break time started at: ${hours}:${minutes}:${seconds}`;
                 }, 1000);
             });
 
