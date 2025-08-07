@@ -9,41 +9,50 @@
 
 </head>
 <body>
-    <form action="summit">
-    <div class="LEFT-PART">
-        <div>
-            <i class="fa-solid fa-clock" style="font-size: xx-large;"></i>
-            <h1>Track time</h1>
-        <p>be accountable..</p>
-        </div>
-        
-    </div>
-    <div class="RIGHT-PART">
-        <div class="TOPSEC" style="text-align: center;"><h3>Login</h3> </div>
-        <div class="MIDDLESEC">
-            <label for="email">E-mail</label>
-            <input type="email" placeholder="Enter your email" name="email" id="email" required id="email">
-            <label for="passwod">Password</label>
-            <input type="password" placeholder="Enter your password" required name="password" id="password">
-            <div class="nonsess">
-             <div class="daniel"><input type="checkbox"> <label for="check">Remember</label></div> 
-             <p>Reset pasword!</p>  
+    <div class="container">
+        <form action="summit">
+            <div class="content">
+                <div class="left-part">
+                    <!-- <div> -->
+                        <div class="logo">
+                            <i class="fa-solid fa-clock"></i>
+                            <img src="/Co-working_space/New folder/TIC Logo_Horizontal_White.png" alt="logo">
+                        </div>
+                        <h1>Track your <br> <span>Time</span></h1>
+                        <p>login and Continue where <br> you ended</p>
+                    <!-- </div> -->
+                </div>
+                <div class="right-part">
+                    <div class="topsec">
+                        <h3>Welcome Back</h3>
+                    </div>
+                    <div class="middlesec">
+                        <label for="email">E-mail <br>
+                            <input type="email" placeholder="Enter your email" name="email" id="email" required id="email">
+                        </label> <br>
+                        <label for="passwod">Password <br>
+                            <input type="password" placeholder="Enter your password" required name="password" id="password">
+                        </label> <br>
+                        <div class="nonsess">
+                         <div class="daniel"><input type="checkbox"> <label for="check">Remember</label></div> 
+                         <p>Reset pasword</p>  
+                        </div>
+                        <button class="loginbtn">Login</button>
+                    </div>
+                    <div class="orrr">
+                        <hr>
+                        <p>or</p>
+                    </div>
+                    <div class="bottomsec">
+                        <i class="fa-brands fa-google"></i>
+                        <i class="fa-brands fa-facebook"></i>
+                        <i class="fa-brands fa-linkedin"></i>
+                    </div>
+                    <p class="lastpp">Don't have an account? <a class="link-regist" href="signin.html"> Register</a></p>    
+                </div>
             </div>
-
-            <button class="loginbtn">Login</button>
-
-            
-
-        </div><br>
-        <div class="BOTTOMSEC">
-            <i class="fa-brands fa-google"></i>
-        <i class="fa-brands fa-facebook"></i>
-        <i class="fa-brands fa-linkedin"></i>
-        </div>
-        <p class="lastpp">Don't have an account <a class="link-regist" href="signin.html">Create an account</a></p>
-       
+        </form>
     </div>
-    </form>
     <script>
     
         document.querySelector('.loginbtn').addEventListener('click', function(event) {
