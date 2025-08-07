@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Mozilla+Headline:wght@200..700&family=Quicksand:wght@300..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap');
+
 *{
     margin: 0;
     padding: 0;
@@ -19,7 +21,7 @@ nav{
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
-    padding: 10px;
+    padding: 25px 10px;
 }
 
 nav .logo{
@@ -30,11 +32,57 @@ nav .logo{
 }
 
 nav .logo i{
-    font-size: 1.5em;
+    font-size: 1.7em;
     color: rgb(12, 0, 117);
 }
 
 nav .logo img{
-    width: 80px;
+    width: 100px;
     height: auto;
+}
+
+nav .links{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+}
+
+nav .links ul{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+    gap: 20px;
+}
+
+nav .links ul li{
+    font-size: 1em;
+    font-family: "lato", sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    padding: 10px 3px;
+    position: relative;
+}
+
+nav .links ul li::after{
+    content: '';
+    position: absolute;
+    background-color: none;
+    padding: 1px;
+    width: 0%;
+    bottom: 0;
+    left: 0;
+    transition: all 0.2s ease-in-out;
+}
+
+nav .links ul li:hover::after{
+    width: 100%;
+    background-color: rgb(20, 3, 116);
+}
+
+nav .links i{
+    font-size: 1.5em;
+    cursor: pointer;
 }
