@@ -22,6 +22,24 @@
     <button class="btnsubmit" type="submit">Register</button>
     </div>
   
+    <script>
+      document.querySelector('.btnsubmit').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent form submission
+        
+        const username = document.getElementById('username').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        if (username === '' || email === '' || password === '') {
+          alert('Please fill in all fields');
+        } else {
+          alert('Registration successful');
+         
+        }
+      });
+    </script>
+
+
 </body>
 </html>
 
