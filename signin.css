@@ -1,51 +1,245 @@
-body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color:white;
-      color: #333;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    .container{
-        width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #e5e7e6;
-    border: none;
+@import url('https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Mozilla+Headline:wght@200..700&family=Quicksand:wght@300..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #f5f5f5;
     display: flex;
-    flex-direction: column;
+    color: #373F51;
     align-items: center;
     justify-content: center;
-    border-radius: 15px;
-    box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.279);
-    padding-bottom: 40px;
+    height: 100vh;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
 
-    }
-    input{
-        width: 100%;
-        padding: 8px;
-        margin: 0.5rem 0;
-        border: 1px solid #373f51;
-        border-radius: 15px;
-        font-size: 1rem;
-    }
-    
-    .btnsubmit {
-      background-color: #e5e7e6;
-      border: 2px solid #373f51;
-      color: #373f51;
-      padding: 8px;
-      border-radius: 15px;
-      cursor: pointer;
-      font-size: 1rem;
-        width: 100%;
-        margin-top: 40px;
-    }
-    .btnsubmit:hover {
-      background-color: #373f51;
-      color: #e5e7e6;
-    }
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    width: 100%;
+    padding: 10px;
+}
+
+form{
+    display: flex;
+    /* align-items: center;
+    justify-content: center; */
+    width: 100%;
+    background-color: #fcfcfc;
+    border-radius: 8px;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.144);
+    max-width: 600px;
+}
+
+.content{
+    width: 100%;
+    display: flex;
+}
+
+form .content .left-part{
+    position: relative;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
+    color: #ffffff;
+    background: linear-gradient(to bottom left, #4d82e6, #1642d3, #260475);
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+    padding: 15px;
+}
+
+form .content .left-part .logo{
+    width: 100%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 0 auto;
+    left: 20px;
+    top: 20px;
+}
+
+form .content .left-part .logo img{
+    width: 80px;
+    height: auto;
+}
+
+form .content .left-part .logo i{
+    color: #ffffff;
+    font-size: 1.5em;
+}
+
+form .content .left-part h1{
+    font-size: 2.3em;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 700;
+    line-height: 40px;
+    /* padding: 10px; */
+}
+
+form .content .left-part h1 span{
+    font-size: 1.2em;
+    color: #0787ff;
+    font-family: "Roboto", sans-serif;
+}
+
+form .content .left-part p{
+    margin-top: 10px;
+    font-size: .7em;
+    letter-spacing: .08em;
+    padding: 5px;
+    font-family: "lato", sans-serif;
+}
+
+form .content .right-part{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 10px;
+}
+
+form .content .right-part .topsec{
+    text-align: center
+}
+
+form .content .right-part .topsec h3{
+    font-size: 1.3em;
+    font-family: "Quicksand", sans-serif;
+    color: #260475;
+    margin-bottom: 10px;
+}
+
+form .content .right-part .middlesec{
+    padding: 5px;
+}
+
+form .content .right-part .middlesec .name{
+    display: flex;
+    /* background-color: red; */
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 0 5px 0 0;
+
+}
+
+form .content .right-part .middlesec .name label{
+    font-size: .7em;
+}
+
+form .content .right-part .middlesec label{
+    font-size: .7em;
+    font-family: "lato", sans-serif;
+    font-weight: 700;
+    color: #000;
+    margin: 2px;
+}
+
+form .content .right-part .middlesec label input{
+    width: 100%;
+    max-width: 260px;
+    margin: 7px;
+    padding: 9px;
+    border: none;
+    border-radius: 3px;
+    color: #000;
+    font-weight: 500;
+    font-size: .9em;
+    outline: none;
+    background-color: #b3c3f73b;
+}
+
+form .content .right-part .middlesec button{
+    /* margin-top: 20px; */
+    width: 100%;
+    max-width: 260px;
+    margin: 5px;
+    padding: 6px;
+    font-size: .8em;
+    background-color: #1642d3;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: .2px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-family: "quicksand", sans-serif;
+}
+
+form .content .right-part .orrr{
+    margin-top: 10px;
+    /* background-color: green; */
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+form .content .right-part .orrr p{
+    position: absolute;
+    font-size: 1em;
+    margin: 0 auto;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fcfcfc;
+    padding: 0 10px;
+    color: #000;
+}
+
+form .content .right-part .orrr hr{
+    width: 100%;
+    max-width: 260px;
+    margin: 5px;
+    padding: .7px;
+    background-color: #2b2b2b98;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: .2px;
+    border-radius: 300px;
+}
+
+form .content .right-part .bottomsec{
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+form .content .right-part .bottomsec i{
+    font-size: 1.1em;
+    cursor: pointer;
+    color: #260475;
+}
+
+form .content .right-part .lastpp{
+    font-size: .6em;
+    text-align: center;
+    font-family: "lato", sans-serif;
+    letter-spacing: .2px;
+    color: #000;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+form .content .right-part .lastpp a{
+    text-decoration: none;
+    color: #260475;
+    font-weight: 600;
+    font-family: "lato", sans-serif;
+    letter-spacing: .2px;
+}
