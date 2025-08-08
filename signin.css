@@ -33,7 +33,7 @@ form{
     background-color: #fcfcfc;
     border-radius: 8px;
     box-shadow: 0 1px 10px rgba(0, 0, 0, 0.144);
-    max-width: 600px;
+    max-width: 700px;
 }
 
 .content{
@@ -105,7 +105,32 @@ form .content .right-part{
     flex-direction: column;
     justify-content: center;
     padding: 20px 10px;
+    position: relative;
 }
+
+form .content .right-part .logo{
+    width: 100%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 0 auto;
+    left: 10px;
+    top: 20px;
+}
+
+form .content .right-part .logo img{
+    width: 70px;
+    height: auto;
+    display: none;
+}
+
+form .content .right-part .logo i{
+    color: #030588;
+    font-size: 1.5em;
+    display: none;
+}
+
 
 form .content .right-part .topsec{
     text-align: center
@@ -255,7 +280,6 @@ form .content .right-part .bottomsec i{
     box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
 }
 
-/* Name Fields Container */
 .name {
     display: flex;
     gap: 10px;
@@ -266,7 +290,6 @@ form .content .right-part .bottomsec i{
     flex: 1;
 }
 
-/* Error Message Styling */
 .error-message {
     display: none;
     background-color: #ffebee;
@@ -278,16 +301,49 @@ form .content .right-part .bottomsec i{
     border-left: 4px solid #c62828;
 }
 
-/* Required Field Indicator */
 .required {
     color: #e74c3c;
     margin-left: 3px;
 }
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    .name {
-        flex-direction: column;
-        gap: 15px;
+
+
+@media (max-width: 650px) {
+    form .content .right-part .middlesec button{
+        max-width: 100%;
+    }
+    form .content .left-part{
+        display: none;
+    }
+
+    form .content .left-part .logo{
+        left: 10px;
+        top: 10px;
+    }
+
+    form .content .left-part .logo img{
+        width: 70px;
+        height: auto;
+        background-color: #00000052;
+    }
+
+    form .content .left-part .logo i{
+        color: #000;
+    }
+
+    form .content .right-part{
+        width: 100%;
+    }
+
+    form .content .right-part .logo img{
+        width: 60px;
+        height: auto;
+        display: inline-block;
+    }
+    
+    form .content .right-part .logo i{
+        color: #030588;
+        font-size: 1em;
+        display: inline-block;
     }
 }
 

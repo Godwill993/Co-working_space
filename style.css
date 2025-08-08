@@ -33,7 +33,7 @@ form{
     background-color: #fcfcfc;
     border-radius: 8px;
     box-shadow: 0 1px 10px rgba(0, 0, 0, 0.144);
-    max-width: 600px;
+    max-width: 650px;
 }
 
 .content{
@@ -105,6 +105,30 @@ form .content .right-part{
     flex-direction: column;
     justify-content: center;
     padding: 20px 10px;
+    position: relative;
+}
+
+form .content .right-part .logo{
+    width: 100%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 0 auto;
+    left: 10px;
+    top: 20px;
+}
+
+form .content .right-part .logo img{
+    width: 70px;
+    height: auto;
+    display: none;
+}
+
+form .content .right-part .logo i{
+    color: #030588;
+    font-size: 1.5em;
+    display: none;
 }
 
 form .content .right-part .topsec{
@@ -295,28 +319,47 @@ form .content .right-part .orrr p{
     text-decoration: underline;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    form .content {
-        flex-direction: column;
+@media (max-width: 650px) {
+    form .content .right-part .middlesec button{
+        max-width: 100%;
     }
     
-    form .content .left-part,
-    form .content .right-part {
+    form .content .left-part{
+        display: none;
+    }
+
+    form .content .left-part .logo{
+        left: 10px;
+        top: 10px;
+    }
+
+    form .content .left-part .logo img{
+        width: 70px;
+        height: auto;
+        background-color: #00000052;
+    }
+
+    form .content .left-part .logo i{
+        color: #000;
+    }
+
+    form .content .right-part{
         width: 100%;
-        padding: 30px 20px;
+    }
+
+    form .content .right-part .logo img{
+        width: 60px;
+        height: auto;
+        display: inline-block;
     }
     
-    form .content .left-part {
-        border-radius: 8px 8px 0 0;
-    }
-    
-    .nonsess {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
+    form .content .right-part .logo i{
+        color: #030588;
+        font-size: 1em;
+        display: inline-block;
     }
 }
+
 
 form .content .right-part .orrr hr {
     width: 100%;
