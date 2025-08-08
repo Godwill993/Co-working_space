@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="container">
-        <form action="summit">
+        <form id="loginForm">
             <div class="content">
                 <div class="left-part">
                     <!-- <div> -->
@@ -27,17 +27,27 @@
                         <h3>Welcome Back</h3>
                     </div>
                     <div class="middlesec">
-                        <label for="email">E-mail <br>
-                            <input type="email" placeholder="Enter your email" name="email" id="email" required id="email">
-                        </label> <br>
-                        <label for="passwod">Password <br>
-                            <input type="password" placeholder="Enter your password" required name="password" id="password">
-                        </label> <br>
-                        <div class="nonsess">
-                         <div class="daniel"><input type="checkbox"> <label for="check">Remember</label></div> 
-                         <p>Reset pasword</p>  
+                        <div id="login-error" class="error-message"></div>
+                        
+                        <div class="form-group">
+                            <label for="login-email">E-mail <span class="required">*</span></label>
+                            <input type="email" placeholder="Enter your email" id="login-email" required>
                         </div>
-                        <button class="loginbtn">Login</button>
+                        
+                        <div class="form-group">
+                            <label for="login-password">Password <span class="required">*</span></label>
+                            <input type="password" placeholder="Enter your password" id="login-password" required>
+                        </div>
+                        
+                        <div class="nonsess">
+                            <div class="remember-me">
+                                <input type="checkbox" id="remember-me"> 
+                                <label for="remember-me">Remember me</label>
+                            </div> 
+                            <a href="#" class="forgot-password">Forgot password?</a>  
+                        </div>
+                        
+                        <button type="submit" class="loginbtn">Login</button>
                     </div>
                     <div class="orrr">
                         <hr>
@@ -48,23 +58,73 @@
                         <i class="fa-brands fa-facebook"></i>
                         <i class="fa-brands fa-linkedin"></i>
                     </div>
-                    <p class="lastpp">Don't have an account? <a class="link-regist" href="home.html"> Register</a></p>    
+                    <p class="lastpp">Don't have an account? <a class="link-regist" href="signin.html">Register</a></p>    
                 </div>
             </div>
         </form>
     </div>
     <script>
-    
-        document.querySelector('.loginbtn').addEventListener('click', function(event) {
-            event.preventDefault(); 
-            
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginForm = document.getElementById('loginForm');
+            const errorMessage = document.getElementById('login-error');
+            const rememberMe = document.getElementById('remember-me');
 
-            if (email === '' || password === '') {
-                alert('Please fill in all fields');
-            } else {
-                alert('Form submitted successfully');
+            const currentUser = localStorage.getItem('currentUser');
+            if (currentUser) {
+                window.location.href = 'home.html';
+            }
+
+            const savedEmail = localStorage.getItem('savedEmail');
+            if (savedEmail) {
+                document.getElementById('login-email').value = savedEmail;
+                rememberMe.checked = true;
+                document.getElementById('login-password').focus();
+            }
+
+            loginForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                const email = document.getElementById('login-email').value.trim().toLowerCase();
+                const password = document.getElementById('login-password').value;
+
+                errorMessage.textContent = '';
+                errorMessage.style.display = 'none';
+
+                if (!email || !password) {
+                    showError('Please enter both email and password');
+                    return;
+                }
+
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                const user = users.find(u => u.email === email);
+
+                if (!user) {
+                    showError('No account found with this email');
+                    return;
+                }
+
+                if (user.password !== password) { 
+                    showError('Incorrect password');
+                    return;
+                }
+                if (rememberMe.checked) {
+                    localStorage.setItem('savedEmail', email);
+                } else {
+                    localStorage.removeItem('savedEmail');
+                }
+
+                localStorage.setItem('currentUser', JSON.stringify({
+                    id: user.id,
+                    email: user.email,
+                    name: `${user.firstName} ${user.lastName}`
+                }));
+
+                window.location.href = 'home.html';
+            });
+
+            function showError(message) {
+                errorMessage.textContent = message;
+                errorMessage.style.display = 'block';
             }
         });
     </script>

@@ -226,7 +226,72 @@ form .content .right-part .bottomsec i{
     color: #260475;
 }
 
-form .content .right-part .lastpp{
+/* Form Group Styling */
+.form-group {
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.8em;
+    color: #555;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9em;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+/* Name Fields Container */
+.name {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.name > div {
+    flex: 1;
+}
+
+/* Error Message Styling */
+.error-message {
+    display: none;
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 10px 15px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 0.85em;
+    border-left: 4px solid #c62828;
+}
+
+/* Required Field Indicator */
+.required {
+    color: #e74c3c;
+    margin-left: 3px;
+}
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .name {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+form .content .right-part .lastpp {
     font-size: .6em;
     text-align: center;
     font-family: "lato", sans-serif;

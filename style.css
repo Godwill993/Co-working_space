@@ -215,7 +215,110 @@ form .content .right-part .orrr p{
     color: #000;
 }
 
-form .content .right-part .orrr hr{
+/* Form Group Styling */
+.form-group {
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.8em;
+    color: #555;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9em;
+    transition: border-color 0.3s;
+    font-family: 'Lato', sans-serif;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+/* Error Message Styling */
+.error-message {
+    display: none;
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 10px 15px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 0.85em;
+    border-left: 4px solid #c62828;
+    font-family: 'Lato', sans-serif;
+}
+
+/* Required Field Indicator */
+.required {
+    color: #e74c3c;
+    margin-left: 3px;
+}
+
+/* Remember Me & Forgot Password */
+.nonsess {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 0;
+    font-size: 0.85em;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.remember-me input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+}
+
+.forgot-password {
+    color: #4a90e2;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.forgot-password:hover {
+    color: #357abd;
+    text-decoration: underline;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    form .content {
+        flex-direction: column;
+    }
+    
+    form .content .left-part,
+    form .content .right-part {
+        width: 100%;
+        padding: 30px 20px;
+    }
+    
+    form .content .left-part {
+        border-radius: 8px 8px 0 0;
+    }
+    
+    .nonsess {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
+
+form .content .right-part .orrr hr {
     width: 100%;
     max-width: 260px;
     margin: 5px;

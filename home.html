@@ -24,7 +24,7 @@
             <li>History</li>
           </ul>
           <i class="fa-solid fa-circle-user"></i>
-          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          <i id="signOutBtn" class="fa-solid fa-arrow-right-from-bracket" title="Sign Out"></i>
         </div>
       </nav>
     </div>
@@ -157,7 +157,6 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script>
-      // DOM Elements
       const workSheet = document.getElementById("work-sheet");
       const task = document.getElementById("task");
       const chanllenge = document.getElementById("chanllenge");
@@ -168,26 +167,18 @@
       const startButton = document.getElementById("start");
       const breakButton = document.getElementById("break");
       const downloadBtn = document.getElementById("downloadPdf");
-      
-      // Status elements
       const fesshift = document.getElementById("fesshift");
       const brkshift = document.getElementById("brkshift");
       const secshift = document.getElementById("secshift");
-      
-      // Summary elements
       const arrivalTime = document.getElementById('arrivalTime');
       const departureTime = document.getElementById('departureTime');
       const todayTaskss = document.getElementById('todayTaskss');
       const todayDifficylty = document.getElementById('todayDifficylty');
       const todaySteps = document.getElementById('todaySteps');
-      
-      // Statistics elements
       const totalWorkTimeEl = document.getElementById('totalWorkTime');
       const totalBreakTimeEl = document.getElementById('totalBreakTime');
       const productivityEl = document.getElementById('productivity');
       const statusEl = document.getElementById('status');
-      
-      // State variables
       let shiftCount = 0;
       let breakCount = 0;
       let workingTime = 0;
@@ -198,7 +189,7 @@
       let isWorking = false;
       let isOnBreak = false;
       let isLate = false;
-      let lateBy = 0; // in minutes
+      let lateBy = 0; 
       
       function formatTime(seconds) {
         const hours = Math.floor(seconds / 3600).toString().padStart(2, "0");
@@ -277,23 +268,17 @@
       }
 
       function updateStatistics() {
-        // Update work and break times
         totalWorkTimeEl.textContent = formatTime(workingTime);
         totalBreakTimeEl.textContent = formatTime(breakTime).substring(3);
-        
-        // Calculate and update productivity
         const productivity = calculateProductivity(workingTime, breakTime);
         productivityEl.textContent = `${productivity}%`;
         
-        // Update status based on arrival time
         if (workStartTime) {
           const startHour = workStartTime.getHours();
           const startMinute = workStartTime.getMinutes();
           
-          // Check if late (after 9:15 AM)
           if (startHour > 9 || (startHour === 9 && startMinute > 15)) {
             isLate = true;
-            // Calculate minutes late
             const lateMinutes = (startHour - 9) * 60 + (startMinute - 15);
             lateBy = Math.max(0, lateMinutes);
             statusEl.textContent = `Late by ${lateBy} min`;
@@ -315,18 +300,14 @@
           jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
 
-        // Show loading state
         const originalText = downloadBtn.innerHTML;
         downloadBtn.disabled = true;
         downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
-
-        // Generate and download PDF
         html2pdf()
           .set(opt)
           .from(element)
           .save()
           .then(() => {
-            // Reset button state
             downloadBtn.disabled = false;
             downloadBtn.innerHTML = '<i class="fas fa-file-pdf"></i> Download Summary';
           });
@@ -340,45 +321,34 @@
         
         clearInterval(timerInterval);
         const now = new Date();
-        
-        // Update summary
         arrivalTime.textContent = workStartTime ? formatSimpleTime(workStartTime) : "N/A";
         departureTime.textContent = formatSimpleTime(now);
         todayTaskss.textContent = task.value;
         todayDifficylty.textContent = chanllenge.value;
         todaySteps.textContent = nextSteps.value;
-        
-        // Update statistics
         updateStatistics();
-        
-        // Show summary section
         document.querySelector('.bottoms').style.display = 'block';
-        
-        // Scroll to summary
         document.querySelector('.bottoms').scrollIntoView({ behavior: 'smooth' });
-        
-        // Reset UI
         startButton.textContent = "Start";
         breakButton.textContent = "Start Break";
         systemTimeDiv.textContent = "Work session ended";
         systemBreakDiv.textContent = "Break time will be shown here";
-        
-        // Reset state
         isWorking = false;
         isOnBreak = false;
       }
 
-      // Event Listeners
       startButton.addEventListener("click", startWork);
       breakButton.addEventListener("click", startBreak);
       stopAllTimersButton.addEventListener("click", endWorkday);
       downloadBtn.addEventListener("click", generatePdf);
-      
-      // Initialize display
       updateDisplay();
-      
-      // Update statistics every minute
       setInterval(updateStatistics, 60000);
+      
+      document.getElementById('signOutBtn').addEventListener('click', function() {
+        localStorage.removeItem('currentUser');
+        clearInterval(timerInterval);
+        window.location.href = 'index.html';
+      });
     </script>
   </body>
 </html>

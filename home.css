@@ -105,6 +105,7 @@ nav .links i{
 }
 
 .timer_section .left .times{
+    width: 100%;
     display: flex;
     gap: 30px;
     margin-bottom: 20px;
@@ -113,16 +114,18 @@ nav .links i{
 .timer_section .left .startstop{
     padding: 10px;
     background-color: rgba(0, 103, 238, 0.274);
-    width: 220px;
+    width: 100%;
+    max-width: 220px;
     border-radius: 8px;
     box-shadow: 3px 3px 20px #0000002a;
 }
 
 .timer_section .left .startstop div{
-    font-size: .85em;
+    font-size: .8em;
     font-family: "quicksand", sans-serif;
     font-weight: 600;
     margin-bottom: 5px;
+    color: #1d1c1c;
 }
 
 .timer_section .left .startstop label{
@@ -136,19 +139,22 @@ nav .links i{
     font-family:  "Mozilla Headline", sans-serif;
     color: #1d1c1c;
 }
+
 .timer_section .left .break{
     padding: 10px;
     background-color: rgba(0, 103, 238, 0.274);
-    width: 230px;
+    width: 100%;
+    max-width: 220px;
     border-radius: 8px;
     box-shadow: 3px 3px 20px #0000002a;
 }
 
 .timer_section .left .break div{
-    font-size: .85em;
+    font-size: .8em;
     font-family: "quicksand", sans-serif;
     font-weight: 600;
     margin-bottom: 5px;
+    color: #1d1c1c;
 }
 
 .timer_section .left .break label{
@@ -196,6 +202,8 @@ nav .links i{
 .right .work-sheet{
     width: 100%;
 }
+
+
 
 .work-sheet label{
     font-size: .9em;
@@ -252,6 +260,67 @@ nav .links i{
     font-family: "lato", sans-serif;
     font-weight: 600;
     /* padding: 5px; */
+}
+
+@media (max-width: 768px) {
+    .timer_section{
+        flex-direction: column;
+        width: 100%;
+    }
+    .timer_section .left{
+        width: 100%;
+    }
+    .timer_section .left .times{
+        flex-direction: column;
+        width: 100%;
+    }
+    .timer_section .left .times .startstop{
+        max-width: 90%;
+        margin: 0 auto;
+    }
+    .timer_section .left .times .break{
+        max-width: 90%;
+        margin: 0 auto;
+    }
+    .timer_buttons{
+        flex-direction: column;
+        max-width: 80%;
+        margin: 0 auto;
+    }
+
+    .timer_buttons button{
+        padding: 12px;
+        margin: 0 auto;
+    }
+
+    .bottom-page{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* max-width: 80%; */
+        margin: 0 auto;
+    }
+
+    .bottom-page button{
+        padding: 15px;
+        margin: 0 auto;
+        width: 80%;
+    }
+
+    .timer_section .right{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 30px;
+        width: 100%;
+    }
+
+    .work-sheet label textarea{
+        width: 100%;
+        max-width: 90%; 
+    }
 }
 
 .summary-section,
