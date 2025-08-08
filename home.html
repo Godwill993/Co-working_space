@@ -87,9 +87,77 @@
       </div>
     </div>
     <div class="bottoms">
-      <div class="alertss" id="alertss"></div>
+      <div class="alertss" id="alertss">
+        <div class="summary-section">
+          <h3>Daily Summary</h3>
+          <div class="summary-grid">
+            <div class="summary-item">
+              <span class="summary-label">Arrival Time:</span>
+              <span id="arrivalTime" class="summary-value">--:--</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Departure Time:</span>
+              <span id="departureTime" class="summary-value">--:--</span>
+            </div>
+            <div class="summary-item full-width">
+              <span class="summary-label">Task of the Day:</span>
+              <span id="todayTaskss" class="summary-value">--</span>
+            </div>
+            <div class="summary-item full-width">
+              <span class="summary-label">Challenges Faced:</span>
+              <span id="todayDifficylty" class="summary-value">--</span>
+            </div>
+            <div class="summary-item full-width">
+              <span class="summary-label">Next Steps:</span>
+              <span id="todaySteps" class="summary-value">--</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="statistics-section">
+          <h3>Daily Statistics</h3>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <i class="fas fa-clock"></i>
+              <div>
+                <span class="stat-label">Total Work Time</span>
+                <span id="totalWorkTime" class="stat-value">00:00:00</span>
+              </div>
+            </div>
+            <div class="stat-item">
+              <i class="fas fa-coffee"></i>
+              <div>
+                <span class="stat-label">Break Time</span>
+                <span id="totalBreakTime" class="stat-value">00:00:00</span>
+              </div>
+            </div>
+            <div class="stat-item">
+              <i class="fas fa-tachometer-alt"></i>
+              <div>
+                <span class="stat-label">Productivity</span>
+                <span id="productivity" class="stat-value">0%</span>
+              </div>
+            </div>
+            <div class="stat-item">
+              <i class="fas fa-running"></i>
+              <div>
+                <span class="stat-label">Status</span>
+                <span id="status" class="stat-value">On Time</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="actions">
+          <button id="downloadPdf" class="btn-download">
+            <i class="fas fa-file-pdf"></i> Download Summary
+          </button>
+        </div>
+      </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script>
+      // DOM Elements
       const workSheet = document.getElementById("work-sheet");
       const task = document.getElementById("task");
       const chanllenge = document.getElementById("chanllenge");
@@ -97,130 +165,220 @@
       const stopAllTimersButton = document.getElementById("stop-all-timers");
       const systemTimeDiv = document.getElementById("system-start-time");
       const systemBreakDiv = document.getElementById("system-break-time");
-      const resume = document.getElementById("start");
-      const resumes = document.getElementById("break");
-      let alertss = document.getElementById("alertss");
-      let fesshift = document.getElementById("fesshift");
-      let brkshift = document.getElementById("brkshift");
-      let secshift = document.getElementById("secshift");
+      const startButton = document.getElementById("start");
+      const breakButton = document.getElementById("break");
+      const downloadBtn = document.getElementById("downloadPdf");
+      
+      // Status elements
+      const fesshift = document.getElementById("fesshift");
+      const brkshift = document.getElementById("brkshift");
+      const secshift = document.getElementById("secshift");
+      
+      // Summary elements
+      const arrivalTime = document.getElementById('arrivalTime');
+      const departureTime = document.getElementById('departureTime');
+      const todayTaskss = document.getElementById('todayTaskss');
+      const todayDifficylty = document.getElementById('todayDifficylty');
+      const todaySteps = document.getElementById('todaySteps');
+      
+      // Statistics elements
+      const totalWorkTimeEl = document.getElementById('totalWorkTime');
+      const totalBreakTimeEl = document.getElementById('totalBreakTime');
+      const productivityEl = document.getElementById('productivity');
+      const statusEl = document.getElementById('status');
+      
+      // State variables
       let shiftCount = 0;
-      let counter = 0;
+      let breakCount = 0;
       let workingTime = 0;
       let breakTime = 0;
       let timerInterval;
-      const today = new Date();
-      const formattedDate = today.toLocaleDateString("en-US");
-      console.log(`Today's Date: ${formattedDate}`);
-
-      function updateDisplay() {
-        const workingHours = Math.floor(workingTime / 3600)
-          .toString()
-          .padStart(2, "0");
-        const workingMinutes = Math.floor((workingTime % 3600) / 60)
-          .toString()
-          .padStart(2, "0");
-        const workingSeconds = (workingTime % 60).toString().padStart(2, "0");
-        document.getElementById(
-          "working-time"
-        ).textContent = `${workingHours}:${workingMinutes}:${workingSeconds}`;
-
-        const breakHours = Math.floor(breakTime / 3600)
-          .toString()
-          .padStart(2, "0");
-        const breakMinutes = Math.floor((breakTime % 3600) / 60)
-          .toString()
-          .padStart(2, "0");
-        const breakSeconds = (breakTime % 60).toString().padStart(2, "0");
-        document.getElementById(
-          "break-time"
-        ).textContent = `${breakMinutes}:${breakSeconds}`;
+      let workStartTime = null;
+      let breakStartTime = null;
+      let isWorking = false;
+      let isOnBreak = false;
+      let isLate = false;
+      let lateBy = 0; // in minutes
+      
+      function formatTime(seconds) {
+        const hours = Math.floor(seconds / 3600).toString().padStart(2, "0");
+        const minutes = Math.floor((seconds % 3600) / 60).toString().padStart(2, "0");
+        const secs = (seconds % 60).toString().padStart(2, "0");
+        return `${hours}:${minutes}:${secs}`;
+      }
+      
+      function formatSimpleTime(date) {
+        return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
       }
 
-      document.getElementById("start").addEventListener("click", () => {
-        const now = new Date();
-        const hours = now.getHours(); // 0–23
-        const minutes = now.getMinutes(); // 0–59
-        const seconds = now.getSeconds(); // 0–59
+      function updateDisplay() {
+        document.getElementById("working-time").textContent = formatTime(workingTime);
+        document.getElementById("break-time").textContent = formatTime(breakTime).substring(3); // Remove hours
+      }
+
+      function startWork() {
+        if (isWorking) return;
+        
         clearInterval(timerInterval);
+        workStartTime = new Date();
+        isWorking = true;
+        isOnBreak = false;
+        shiftCount++;
+        
+        startButton.textContent = "Working...";
+        systemTimeDiv.textContent = `Work started at: ${formatSimpleTime(workStartTime)}`;
+        
         timerInterval = setInterval(() => {
           workingTime++;
           updateDisplay();
-          systemTimeDiv.textContent = `You started work at: ${hours}:${minutes}:${seconds}`;
         }, 1000);
-        shiftCount++;
-        console.log(shiftCount);
-        if (shiftCount == 1) {
-          resume.textContent = "Working..";
-          fesshift.textContent = "You are Currently on your first shift";
+        
+        if (shiftCount === 1) {
+          fesshift.textContent = "You are currently on your first shift";
+        } else if (shiftCount >= 2) {
+          brkshift.textContent = "Your break is over.";
+          secshift.textContent = `You are currently on your ${shiftCount}${shiftCount > 2 ? 'rd' : 'nd'} shift`;
         }
-        if (shiftCount == 2) {
-          resume.textContent = "Working..";
-          brkshift.textContent = "Your break is Over.";
-          secshift.textContent = "You are currently on your second shift";
-          return;
-        }
-      });
+      }
 
-      document.getElementById("break").addEventListener("click", () => {
+      function startBreak() {
+        if (!isWorking || isOnBreak) return;
+        
         const now = new Date();
-        const hours = now.getHours(); // 0–23
-        const minutes = now.getMinutes(); // 0–59
-        const seconds = now.getSeconds(); // 0–59
+        const currentHour = now.getHours();
+        const currentMinute = now.getMinutes();
+        
+        if (currentHour !== 12) {
+          alert("Break time is only allowed between 12:00 PM and 1:00 PM");
+          return;
+        }
+        
         clearInterval(timerInterval);
-        counter++;
-        if (counter > 1) {
-          alert("You can only go for break once.");
-          workingTime++;
-          return;
-        }
-        if (hours !== 12 && minutes < 30) {
-          alert("You can only go for break at 12:00.");
-          return;
-        }
+        breakStartTime = now;
+        isOnBreak = true;
+        breakCount++;
+        
+        breakButton.textContent = "On Break...";
+        systemBreakDiv.textContent = `Break started at: ${formatSimpleTime(breakStartTime)}`;
+        
         timerInterval = setInterval(() => {
           breakTime++;
           updateDisplay();
-          systemBreakDiv.textContent = `Your break time started at: ${hours}:${minutes}`;
         }, 1000);
-        console.log(shiftCount);
-        if (shiftCount == 1) {
-          resume.textContent = "continue..";
-          fesshift.textContent = `Your First Shift is over. at ${hours}:${minutes}`;
-          brkshift.textContent = "You Are Currrently on Break";
+        
+        fesshift.textContent = `Your ${shiftCount === 1 ? 'First' : 'Next'} Shift ended at ${formatSimpleTime(now)}`;
+        brkshift.textContent = "You are currently on break";
+      }
+
+      function calculateProductivity(workTime, breakTime) {
+        const totalTime = workTime + breakTime;
+        if (totalTime === 0) return 0;
+        return Math.round((workTime / (workTime + breakTime)) * 100);
+      }
+
+      function updateStatistics() {
+        // Update work and break times
+        totalWorkTimeEl.textContent = formatTime(workingTime);
+        totalBreakTimeEl.textContent = formatTime(breakTime).substring(3);
+        
+        // Calculate and update productivity
+        const productivity = calculateProductivity(workingTime, breakTime);
+        productivityEl.textContent = `${productivity}%`;
+        
+        // Update status based on arrival time
+        if (workStartTime) {
+          const startHour = workStartTime.getHours();
+          const startMinute = workStartTime.getMinutes();
+          
+          // Check if late (after 9:15 AM)
+          if (startHour > 9 || (startHour === 9 && startMinute > 15)) {
+            isLate = true;
+            // Calculate minutes late
+            const lateMinutes = (startHour - 9) * 60 + (startMinute - 15);
+            lateBy = Math.max(0, lateMinutes);
+            statusEl.textContent = `Late by ${lateBy} min`;
+            statusEl.style.color = '#e74c3c';
+          } else {
+            statusEl.textContent = 'On Time';
+            statusEl.style.color = '#2ecc71';
+          }
+        }
+      }
+
+      function generatePdf() {
+        const element = document.getElementById('alertss');
+        const opt = {
+          margin: 10,
+          filename: `work-summary-${new Date().toISOString().split('T')[0]}.pdf`,
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2 },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        // Show loading state
+        const originalText = downloadBtn.innerHTML;
+        downloadBtn.disabled = true;
+        downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+
+        // Generate and download PDF
+        html2pdf()
+          .set(opt)
+          .from(element)
+          .save()
+          .then(() => {
+            // Reset button state
+            downloadBtn.disabled = false;
+            downloadBtn.innerHTML = '<i class="fas fa-file-pdf"></i> Download Summary';
+          });
+      }
+
+      function endWorkday() {
+        if (!task.value.trim() || !chanllenge.value.trim() || !nextSteps.value.trim()) {
+          alert("Please fill in all fields before ending your day");
           return;
         }
-      });
+        
+        clearInterval(timerInterval);
+        const now = new Date();
+        
+        // Update summary
+        arrivalTime.textContent = workStartTime ? formatSimpleTime(workStartTime) : "N/A";
+        departureTime.textContent = formatSimpleTime(now);
+        todayTaskss.textContent = task.value;
+        todayDifficylty.textContent = chanllenge.value;
+        todaySteps.textContent = nextSteps.value;
+        
+        // Update statistics
+        updateStatistics();
+        
+        // Show summary section
+        document.querySelector('.bottoms').style.display = 'block';
+        
+        // Scroll to summary
+        document.querySelector('.bottoms').scrollIntoView({ behavior: 'smooth' });
+        
+        // Reset UI
+        startButton.textContent = "Start";
+        breakButton.textContent = "Start Break";
+        systemTimeDiv.textContent = "Work session ended";
+        systemBreakDiv.textContent = "Break time will be shown here";
+        
+        // Reset state
+        isWorking = false;
+        isOnBreak = false;
+      }
 
+      // Event Listeners
+      startButton.addEventListener("click", startWork);
+      breakButton.addEventListener("click", startBreak);
+      stopAllTimersButton.addEventListener("click", endWorkday);
+      downloadBtn.addEventListener("click", generatePdf);
+      
+      // Initialize display
       updateDisplay();
-      document
-        .getElementById("stop-all-timers")
-        .addEventListener("click", () => {
-          clearInterval(timerInterval);
-          workingTime = 0;
-          breakTime = 0;
-          updateDisplay();
-          if (task.value == "" || chanllenge == "" || nextSteps == "") {
-            alert("fill all");
-            return;
-          }
-          systemTimeDiv.textContent = "have a blessed evening";
-          alert("have a blessed evening");
-        });
-
-      document
-        .getElementById("stop-all-timers")
-        .addEventListener("click", () => {
-          workSheet.style.display = "block";
-          const taskValue = task.value;
-          const chanllengeValue = chanllenge.value;
-          const nextStepsValue = nextSteps.value;
-
-          if (taskValue && chanllengeValue && nextStepsValue) {
-            alertss.textContent = `Task of the day: ${taskValue}\nChanllenge: ${chanllengeValue}\nNext steps: ${nextStepsValue}`;
-            resume.textContent = "start";
-            return;
-          }
-        });
+      
+      // Update statistics every minute
+      setInterval(updateStatistics, 60000);
     </script>
   </body>
 </html>
